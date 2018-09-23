@@ -26,5 +26,13 @@ public class Main {
         Group group = new Group(1, students);
         System.out.println(group+"Средний балл группы: "+group.getAverageRatingOfGroup());
 
+	ArrayList<Student> students1 = new ArrayList<>();
+        students1.add(student2);
+        students1.add(student5);
+        students1.add(student6);
+        students1.add(student3);
+        Group group1 = new Group(2, students1);
+        System.out.println(group1+"Средний балл группы: "+group1.getAverageRatingOfGroup());
+
     }
 }
