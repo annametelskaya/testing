@@ -1,4 +1,4 @@
-package lab3.testing;
+package lab4.testing;
 
 public class Triangle {
 
