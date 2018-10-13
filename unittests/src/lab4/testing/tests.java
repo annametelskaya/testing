@@ -22,13 +22,13 @@ public class tests {
         Assert.assertTrue(Triangle.getTriangle(4, 4, 3));
     }
 
-    /*4. build triangle when sum of two equal side is equal to third side*/
+    /*4. build triangle when sum of two equal sides is equal to third side*/
     @Test
     public void buildTriangleWhenSumOfTwoEqualSidesIsEqualToThirdShouldReturnFalse() {
         Assert.assertFalse(Triangle.getTriangle(3, 3, 6));
     }
 
-    /*5. build triangle when sum of two equal side is less than third side*/
+    /*5. build triangle when sum of two equal sides is less than third side*/
     @Test
     public void buildTriangleWhenSumOfTwoEqualSidesIsLessThanThirdShouldReturnFalse() {
         Assert.assertFalse(Triangle.getTriangle(3, 3, 7));
