@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -32,7 +33,9 @@ public class Tests {
     @Test
     public void findTicketWhenDepartureDateIsThanReturnDate() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/home/anna/.m2/repository/webdriver/chromedriver/linux64/2.41/chromedriver");
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        WebDriver driver = new ChromeDriver(options);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         fillAllFields(driver, wait);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("date-field-wrap"))).click();
@@ -47,7 +50,9 @@ public class Tests {
     @Test
     public void findTicketWhenThereAreBlankFields() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/home/anna/.m2/repository/webdriver/chromedriver/linux64/2.41/chromedriver");
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        WebDriver driver = new ChromeDriver(options);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         driver.get("https://www.airbaltic.com/en-BY/index");
         Thread.sleep(5000);
@@ -68,7 +73,9 @@ public class Tests {
     @Test
     public void findTicketWhenNumberOfBabiesIsMoreThanAdults() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/home/anna/.m2/repository/webdriver/chromedriver/linux64/2.41/chromedriver");
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        WebDriver driver = new ChromeDriver(options);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         fillAllFields(driver, wait);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("pax-selector-block"))).click();
