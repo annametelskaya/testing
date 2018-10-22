@@ -31,7 +31,7 @@ public class Tests {
     }
 
     @Test
-    public void findTicketWhenDepartureDateIsThanReturnDate() throws InterruptedException {
+    public void findTicketWhenDepartureDateIsLaterThanReturnDate() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/home/anna/.m2/repository/webdriver/chromedriver/linux64/2.41/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
