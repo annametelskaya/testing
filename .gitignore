@@ -5,6 +5,7 @@
 
 # Idea
 .idea
+target
 *.iml
 *.iws
 *.ipr
@@ -13,4 +14,3 @@
 out
 build
 bin
-target
