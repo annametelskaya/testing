@@ -5,7 +5,6 @@
 
 # Idea
 .idea
-target
 *.iml
 *.iws
 *.ipr
@@ -14,3 +13,6 @@ target
 out
 build
 bin
+
+# Maven
+target
