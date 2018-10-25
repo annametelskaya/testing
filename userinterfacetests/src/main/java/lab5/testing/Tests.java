@@ -13,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class Tests {
 
     public void fillAllFields(WebDriver driver, WebDriverWait wait) throws InterruptedException {
@@ -30,7 +29,7 @@ public class Tests {
 
     @Test
     public void findTicketWhenDepartureDateIsLaterThanReturnDate() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/home/anna/.m2/repository/webdriver/chromedriver/linux64/2.41/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         WebDriver driver = new ChromeDriver(options);
@@ -46,7 +45,7 @@ public class Tests {
 
     @Test
     public void findTicketWhenThereAreBlankFields() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/home/anna/.m2/repository/webdriver/chromedriver/linux64/2.41/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         WebDriver driver = new ChromeDriver(options);
@@ -67,7 +66,7 @@ public class Tests {
 
     @Test
     public void findTicketWhenNumberOfBabiesIsMoreThanAdults() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/home/anna/.m2/repository/webdriver/chromedriver/linux64/2.41/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         WebDriver driver = new ChromeDriver(options);
