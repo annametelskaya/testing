@@ -50,50 +50,50 @@ public class Tests {
 
     @Test
     public void buildIsoscelesTriangleShouldReturnTrue() {
-        Assert.assertTrue(Triangle.getTriangle(new Triangle(4, 4, 3)));
+        Assert.assertTrue(new Triangle(4, 4, 3).getTriangle());
     }
 
     @Test
     public void buildTriangleWhenSumOfTwoEqualSidesIsEqualToThirdShouldReturnFalse() {
-        Assert.assertFalse(Triangle.getTriangle(new Triangle(3, 3, 6)));
+        Assert.assertFalse(new Triangle(3, 3, 6).getTriangle());
     }
 
     @Test
     public void buildTriangleWhenSumOfTwoEqualSidesIsLessThanThirdShouldReturnFalse() {
-        Assert.assertFalse(Triangle.getTriangle(new Triangle(3, 3, 7)));
+        Assert.assertFalse(new Triangle(3, 3, 7).getTriangle());
     }
 
     @Test
     public void buildRightTriangleShouldReturnTrue() {
-        Assert.assertTrue(Triangle.getTriangle(new Triangle(3, 4, 5)));
+        Assert.assertTrue(new Triangle(3, 4, 5).getTriangle());
     }
 
     @Test
     public void buildEquilateralTriangleShouldReturnTrue() {
-        Assert.assertTrue(Triangle.getTriangle(new Triangle(3, 3, 3)));
+        Assert.assertTrue(new Triangle(3, 3, 3).getTriangle());
     }
 
     @Test
     @UseDataProvider("triangleZeroSizes")
     public void buildTriangleWhenOneSideIsZeroShouldReturnFalse(double a, double b, double c) {
-        Assert.assertFalse(Triangle.getTriangle(new Triangle(a, b, c)));
+        Assert.assertFalse(new Triangle(a, b, c).getTriangle());
     }
 
     @Test
     @UseDataProvider("triangleNegativeSizes")
     public void buildTriangleWhenOneSideIsNegativeShouldReturnFalse(double a, double b, double c) {
-        Assert.assertFalse(Triangle.getTriangle(new Triangle(a, b, c)));
+        Assert.assertFalse(new Triangle(a, b, c).getTriangle());
     }
 
     @Test
     @UseDataProvider("conditionsAreFulfilled")
     public void buildTriangleWhenConditionsAreFulfilledShouldReturnTrue(double a, double b, double c) {
-        Assert.assertTrue(Triangle.getTriangle(new Triangle(a, b, c)));
+        Assert.assertTrue(new Triangle(a, b, c).getTriangle());
     }
 
     @Test
     @UseDataProvider("conditionsAreNotFulfilled")
     public void buildTriangleWhenConditionsAreNotFulfilledShouldReturnFalse(double a, double b, double c) {
-        Assert.assertFalse(Triangle.getTriangle(new Triangle(a, b, c)));
+        Assert.assertFalse(new Triangle(a, b, c).getTriangle());
     }
 }
