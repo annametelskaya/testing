@@ -1,3 +1,5 @@
+package by.bsu.metelskaya;
+
 import by.bsu.metelskaya.pages.MainPage;
 import org.junit.After;
 import org.junit.Assert;
@@ -6,9 +8,6 @@ import org.junit.Test;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import java.util.concurrent.TimeUnit;
 
 public class Tests {
     WebDriver driver;
@@ -16,11 +15,8 @@ public class Tests {
 
     @Before
     public void openPage() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        driver = new ChromeDriver();
         driver.get("https://www.airbaltic.com/en-BY/index");
         page = new MainPage(driver);
     }
@@ -28,7 +24,7 @@ public class Tests {
     @Test
     public void findTicketWhenDepartureDateIsLaterThanReturnDate() {
         String expectedError = "The date of the inbound flight cannot be earlier than the date of the outbound flight. Please adjust your selection.";
-        Assert.assertEquals(page.tryTofindTicketWhenDepartureDateIsLaterThanReturnDate(), expectedError);
+        Assert.assertEquals(page.tryToFindTicketWhenDepartureDateIsLaterThanReturnDate(), expectedError);
     }
 
     @Test

@@ -9,25 +9,25 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class MainPage {
-    @FindBy(xpath = "//div[@class=\"el-tabs__content\"]")
+    @FindBy(xpath = "//div[@class='el-tabs__content']")
     private WebElement content;
-    @FindBy(xpath = "//div[@class=\"orig-destin origin\"]/div/input")
+    @FindBy(xpath = "//div[@class='orig-destin origin']/div/input")
     private WebElement inputForm;
-    @FindBy(xpath = "//li[@class=\"dropdown-item\"]/div/div[@class=\"airport\"]")
+    @FindBy(xpath = "//li[@class='dropdown-item']/div/div[@class='airport']")
     private List<WebElement> dropdown;
-    @FindBy(xpath = "//div[@class=\"departure\"]/div/input")
+    @FindBy(xpath = "//div[@class='departure']/div/input")
     private WebElement departureCalendar;
-    @FindBy(xpath = "//div[@class=\"return\"]/div/input")
+    @FindBy(xpath = "//div[@class='return']/div/input")
     private WebElement returnCalendar;
-    @FindBy(xpath = "//td[@class=\"available\"]")
+    @FindBy(xpath = "//td[@class='available']")
     private List<WebElement> availableDates;
-    @FindBy(xpath = "//div[@focusoutforceopen=\"openPaxSelector\"]")
+    @FindBy(xpath = "//div[@focusoutforceopen='openPaxSelector']")
     private WebElement passengersSelector;
-    @FindBy(xpath = "//div[@class=\"pax-count-input\"][3]/span[2]")
+    @FindBy(xpath = "//div[@class='pax-count-input'][last()]/span[last()]")
     private WebElement plusInfant;
-    @FindBy(xpath = "//ul[@class=\"form-errors\"]")
+    @FindBy(xpath = "//ul[@class='form-errors']")
     WebElement errors;
-    @FindBy(xpath = "//div[@class=\"btn btn-blue btn-search\"]")
+    @FindBy(xpath = "//div[@class='btn btn-blue btn-search']")
     WebElement serchButton;
 
     private WebDriver driver;
@@ -38,7 +38,7 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public String tryTofindTicketWhenDepartureDateIsLaterThanReturnDate() {
+    public String tryToFindTicketWhenDepartureDateIsLaterThanReturnDate() {
         scrollToContent();
         typeArrivalAirport("Riga (RIX) - Latvia");
         typeDepartureAirport("Frankfurt (am Main) (FRA) - Germany");
@@ -65,45 +65,45 @@ public class MainPage {
         return errors.getText();
     }
 
-    MainPage scrollToContent() {
+    private MainPage scrollToContent() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", content);
         return this;
     }
 
-    MainPage typeArrivalAirport(String airport) {
+    private MainPage typeArrivalAirport(String airport) {
         inputForm.click();
         findAirport(airport);
         return this;
     }
 
-    MainPage typeDepartureAirport(String airport) {
+    private MainPage typeDepartureAirport(String airport) {
         findAirport(airport);
         return this;
     }
 
-    MainPage chooseDepartureDate(int numberOfDaysFromNow) {
+    private MainPage chooseDepartureDate(int numberOfDaysFromNow) {
         departureCalendar.click();
         availableDates.get(numberOfDaysFromNow - 1).click();
         return this;
     }
 
-    MainPage chooseReturnDate(int numberOfDaysFromNow) {
+    private MainPage chooseReturnDate(int numberOfDaysFromNow) {
         returnCalendar.click();
         availableDates.get(numberOfDaysFromNow - 1).click();
         return this;
     }
 
-    MainPage clickToAddNewPassenger() {
+    private MainPage clickToAddNewPassenger() {
         passengersSelector.click();
         return this;
     }
 
-    MainPage addInfants(int number) {
+    private MainPage addInfants(int number) {
         addFewPassengers(number, plusInfant);
         return this;
     }
 
-    MainPage clickSearch() {
+    private MainPage clickSearch() {
         serchButton.click();
         return this;
     }
