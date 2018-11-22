@@ -11,10 +11,6 @@ import java.util.List;
 public class MainPage {
     @FindBy(xpath = "//div[@class='el-tabs__content']")
     private WebElement content;
-    @FindBy(xpath = "//div[@class='orig-destin origin']/div/input")
-    private WebElement inputForm;
-    @FindBy(xpath = "//li[@class='dropdown-item']/div/div[@class='airport']")
-    private List<WebElement> dropdown;
     @FindBy(xpath = "//div[@class='departure']/div/input")
     private WebElement departureCalendar;
     @FindBy(xpath = "//div[@class='return']/div/input")
@@ -40,8 +36,7 @@ public class MainPage {
 
     public String tryToFindTicketWhenDepartureDateIsLaterThanReturnDate() {
         scrollToContent();
-        typeArrivalAirport("Riga (RIX) - Latvia");
-        typeDepartureAirport("Frankfurt (am Main) (FRA) - Germany");
+        clickSearch(1);
         chooseReturnDate(1);
         chooseDepartureDate(3);
         return errors.getText();
@@ -49,10 +44,7 @@ public class MainPage {
 
     public String tryToFindTicketWhenNumberOfInfantsIsMoreThanAdults() {
         scrollToContent();
-        typeArrivalAirport("Riga (RIX) - Latvia");
-        typeDepartureAirport("Frankfurt (am Main) (FRA) - Germany");
-        chooseDepartureDate(2);
-        chooseReturnDate(1);
+        clickSearch(1);
         clickToAddNewPassenger();
         addInfants(2);
         return errors.getText();
@@ -60,8 +52,7 @@ public class MainPage {
 
     public String tryToFindWhenAllFieldsAreEmpty() {
         scrollToContent();
-        clickSearch();
-        clickSearch();
+        clickSearch(2);
         return errors.getText();
     }
 
@@ -70,16 +61,6 @@ public class MainPage {
         return this;
     }
 
-    private MainPage typeArrivalAirport(String airport) {
-        inputForm.click();
-        findAirport(airport);
-        return this;
-    }
-
-    private MainPage typeDepartureAirport(String airport) {
-        findAirport(airport);
-        return this;
-    }
 
     private MainPage chooseDepartureDate(int numberOfDaysFromNow) {
         departureCalendar.click();
@@ -103,23 +84,15 @@ public class MainPage {
         return this;
     }
 
-    private MainPage clickSearch() {
-        serchButton.click();
+    private MainPage clickSearch(int number) {
+        for (int i = 0; i < number; i++)
+            serchButton.click();
         return this;
     }
 
     private void addFewPassengers(int number, WebElement element) {
         for (int i = 0; i < number; i++) {
             element.click();
-        }
-    }
-
-    private void findAirport(String airport) {
-        for (WebElement a : dropdown) {
-            if (a.getText().equals(airport)) {
-                a.click();
-                return;
-            }
         }
     }
 }
