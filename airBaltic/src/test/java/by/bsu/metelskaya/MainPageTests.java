@@ -23,23 +23,40 @@ public class MainPageTests {
     @Test
     public void findTicketWhenDepartureDateIsLaterThanReturnDate() {
         String expectedError = "The date of the inbound flight cannot be earlier than the date of the outbound flight. Please adjust your selection.";
-        Assert.assertEquals(steps.tryToFindTicketWhenDepartureDateIsLaterThanReturnDate(), expectedError);
+        Assert.assertEquals(steps.getErrorWhenDepartureDateIsLaterThanReturnDate(), expectedError);
     }
 
     @Test
     public void findTicketWhenNumberOfInfantIsMoreThanAdults() {
         String expectedError = "The number of infants can not be higher than the number of adults. Only an adult can accompany an infant.";
-        Assert.assertEquals(steps.tryToFindTicketWhenNumberOfInfantsIsMoreThanAdults(), expectedError);
+        Assert.assertEquals(steps.getErrorWhenNumberOfInfantsIsMoreThanAdults(), expectedError);
     }
 
     @Test
-    public void findWhenAllFieldsAreEmpty() {
+    public void findTicketWhenAllFieldsAreEmpty() {
         String expectedError = "Please select the departure date.\n" +
                 "Please select the return date.\n" +
                 "Please select the destination of your journey.\n" +
                 "Please select the origin of your journey.";
-        Assert.assertEquals(steps.tryToFindWhenAllFieldsAreEmpty(), expectedError);
+        Assert.assertEquals(steps.getErrorWhenAllFieldsAreEmpty(), expectedError);
+    }
 
+    @Test
+    public void findTicketWhenArrivalAirportEqualsToDepartureOne() {
+        String expectedError = "Please select the destination of your journey.";
+        Assert.assertEquals(steps.getErrorWhenArrivalAirportEqualsToDepartureOne(), expectedError);
+    }
+
+    @Test
+    public void findBookingWhenSurnameIsNotInEnglish() {
+        String expectedError = "Only Latin characters are allowed";
+        Assert.assertEquals(steps.getErrorWhenSurnameIsNotInEnglish(), expectedError);
+    }
+
+    @Test
+    public void findBookingWhenTicketNumberIsLessThan6symbols() {
+        String expectedError = "The booking reference consists of 6 symbols. The ticket number consists of 3 + 10 digits, separated by a hyphen.";
+        Assert.assertEquals(steps.getErrorWhenTicketNumberIsLessThan6symbols(), expectedError);
     }
 
     @After
