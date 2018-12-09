@@ -34,38 +34,31 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public MainPage scrollToContent() {
+    public void scrollToContent() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", content);
-        return this;
     }
 
-
-    public MainPage chooseDepartureDate(int numberOfDaysFromNow) {
+    public void chooseDepartureDate(int numberOfDaysFromNow) {
         departureCalendar.click();
         availableDates.get(numberOfDaysFromNow - 1).click();
-        return this;
     }
 
-    public MainPage chooseReturnDate(int numberOfDaysFromNow) {
+    public void chooseReturnDate(int numberOfDaysFromNow) {
         returnCalendar.click();
         availableDates.get(numberOfDaysFromNow - 1).click();
-        return this;
     }
 
-    public MainPage clickToAddNewPassenger() {
+    public void clickToAddNewPassenger() {
         passengersSelector.click();
-        return this;
     }
 
-    public MainPage addInfants(int number) {
+    public void addInfants(int number) {
         addFewPassengers(number, plusInfant);
-        return this;
     }
 
-    public MainPage clickSearch(int number) {
+    public void clickSearch(int number) {
         for (int i = 0; i < number; i++)
             serchButton.click();
-        return this;
     }
 
     public String getError() {

@@ -10,7 +10,6 @@ public class MainPageSteps {
         mainPage = new MainPage(driver);
     }
 
-
     public String tryToFindTicketWhenDepartureDateIsLaterThanReturnDate() {
         mainPage.scrollToContent();
         mainPage.clickSearch(1);
