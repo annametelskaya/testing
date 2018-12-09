@@ -17,10 +17,6 @@ public class MainPage {
     private WebElement returnCalendar;
     @FindBy(xpath = "//td[@class='available']")
     private List<WebElement> availableDates;
-    @FindBy(xpath = "//div[@focusoutforceopen='openPaxSelector']")
-    private WebElement passengersSelector;
-    @FindBy(xpath = "//div[@class='pax-count-input'][last()]/span[last()]")
-    private WebElement plusInfant;
     @FindBy(xpath = "//ul[@class='form-errors']")
     WebElement errors;
     @FindBy(xpath = "//div[@class='btn btn-blue btn-search']")
@@ -48,14 +44,6 @@ public class MainPage {
         availableDates.get(numberOfDaysFromNow - 1).click();
     }
 
-    public void clickToAddNewPassenger() {
-        passengersSelector.click();
-    }
-
-    public void addInfants(int number) {
-        addFewPassengers(number, plusInfant);
-    }
-
     public void clickSearch(int number) {
         for (int i = 0; i < number; i++)
             serchButton.click();
@@ -63,11 +51,5 @@ public class MainPage {
 
     public String getError() {
         return errors.getText();
-    }
-
-    private void addFewPassengers(int number, WebElement element) {
-        for (int i = 0; i < number; i++) {
-            element.click();
-        }
     }
 }

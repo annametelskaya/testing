@@ -17,18 +17,4 @@ public class MainPageSteps {
         mainPage.chooseDepartureDate(3);
         return mainPage.getError();
     }
-
-    public String tryToFindTicketWhenNumberOfInfantsIsMoreThanAdults() {
-        mainPage.scrollToContent();
-        mainPage.clickSearch(1);
-        mainPage.clickToAddNewPassenger();
-        mainPage.addInfants(2);
-        return mainPage.getError();
-    }
-
-    public String tryToFindWhenAllFieldsAreEmpty() {
-        mainPage.scrollToContent();
-        mainPage.clickSearch(2);
-        return mainPage.getError();
-    }
 }
