@@ -10,6 +10,19 @@ public class MainPageSteps {
         mainPage = new MainPage(driver);
     }
 
+    public void getAllTickets() {
+        mainPage.selectArrivalAirport("Riga (RIX) - Latvia");
+        mainPage.selectArrivalAirport("London (Gatwick) (LGW) - United Kingdom");
+        mainPage.selectDepartureDate(1);
+        mainPage.selectReturnDate(1);
+        mainPage.clickSearch(1);
+    }
+
+    public String getErrorWhenArrivalAirportDoesNotExist() {
+        mainPage.fillArrivalAirportField("example");
+        return mainPage.getAirportError();
+    }
+
     public String getErrorWhenDepartureDateIsLaterThanReturnDate() {
         mainPage.scrollToContent();
         mainPage.clickSearch(1);
@@ -48,13 +61,11 @@ public class MainPageSteps {
         return mainPage.getError();
     }
 
-    public String getErrorWhenTicketNumberIsLessThan6symbols() {
+    public String getErrorWhenTicketNumberIsLessThanSixsymbols() {
         mainPage.clickBookingTab();
         mainPage.fillTicketNumberField("12345");
         mainPage.fillSurnameField("Brawn");
         mainPage.clickBookingMerge();
         return mainPage.getError();
     }
-
-
 }

@@ -48,15 +48,21 @@ public class MainPageTests {
     }
 
     @Test
+    public void findTicketWhenArrivalAirportDoesNotExist() {
+        String expectedError = "Unfortunately, we do not fly to/from ";
+        Assert.assertTrue(steps.getErrorWhenArrivalAirportDoesNotExist().contains(expectedError));
+    }
+
+    @Test
     public void findBookingWhenSurnameIsNotInEnglish() {
         String expectedError = "Only Latin characters are allowed";
         Assert.assertEquals(steps.getErrorWhenSurnameIsNotInEnglish(), expectedError);
     }
 
     @Test
-    public void findBookingWhenTicketNumberIsLessThan6symbols() {
+    public void findBookingWhenTicketNumberIsLessThanSixSymbols() {
         String expectedError = "The booking reference consists of 6 symbols. The ticket number consists of 3 + 10 digits, separated by a hyphen.";
-        Assert.assertEquals(steps.getErrorWhenTicketNumberIsLessThan6symbols(), expectedError);
+        Assert.assertEquals(steps.getErrorWhenTicketNumberIsLessThanSixsymbols(), expectedError);
     }
 
     @After

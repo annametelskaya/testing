@@ -36,10 +36,13 @@ public class MainPage {
     @FindBy(xpath = "//div[@class='pax-count-input'][last()]/span[last()]")
     private WebElement plusInfant;
 
+    @FindBy(xpath = "//ul[@class='dropdown-menu open empty']/li")
+    private WebElement airportError;
+
     @FindBy(xpath = "//ul[@class='form-errors']")
     private WebElement errors;
 
-    @FindBy(xpath = "//div[@class='btn btn-blue btn-search']/button")
+    @FindBy(xpath = "//div[@class='btn btn-blue btn-search']")
     private WebElement searchButton;
 
     @FindBy(xpath = "//div[@class='el-tabs__item manage-my-booking']")
@@ -85,6 +88,10 @@ public class MainPage {
         availableDates.get(numberOfDaysFromNow - 1).click();
     }
 
+    public void fillArrivalAirportField(String airport) {
+        inputForm.sendKeys(airport);
+    }
+
     public void fillTicketNumberField(String number) {
         ticketNumberField.sendKeys(number);
     }
@@ -107,7 +114,7 @@ public class MainPage {
 
     public void clickSearch(int number) {
         for (int i = 0; i < number; i++)
-            searchButton.click();
+            searchButton.submit();
     }
 
     public void addInfants(int number) {
@@ -116,6 +123,10 @@ public class MainPage {
 
     public String getError() {
         return errors.getText();
+    }
+
+    public String getAirportError() {
+        return airportError.getText();
     }
 
     private void addFewPassengers(int number, WebElement element) {
