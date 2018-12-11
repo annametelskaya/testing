@@ -68,5 +68,6 @@ public class MainPageTests {
     @After
     public void close() {
         driver.quit();
+        driver = null;
     }
 }

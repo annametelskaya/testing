@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -33,7 +35,13 @@ public class MainPage {
     @FindBy(xpath = "//div[@focusoutforceopen='openPaxSelector']")
     private WebElement passengersSelector;
 
-    @FindBy(xpath = "//div[@class='pax-count-input'][last()]/span[last()]")
+    @FindBy(xpath = "//div[@class='pax-count-input'][1]/span[last()]")
+    private WebElement plusAdult;
+
+    @FindBy(xpath = "//div[@class='pax-count-input'][2]/span[last()]")
+    private WebElement plusChildren;
+
+    @FindBy(xpath = "//div[@class='pax-count-input'][3]/span[last()]")
     private WebElement plusInfant;
 
     @FindBy(xpath = "//ul[@class='dropdown-menu open empty']/li")
@@ -58,10 +66,12 @@ public class MainPage {
     private WebElement mmbButton;
 
     private WebDriver driver;
+    private WebDriverWait wait;
 
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(this.driver, 10);
         PageFactory.initElements(driver, this);
     }
 
@@ -70,7 +80,7 @@ public class MainPage {
     }
 
     public void selectArrivalAirport(String airport) {
-        inputForm.click();
+        checkVisibility(inputForm).click();
         findAirport(airport);
     }
 
@@ -79,69 +89,88 @@ public class MainPage {
     }
 
     public void selectDepartureDate(int numberOfDaysFromNow) {
-        departureCalendar.click();
-        availableDates.get(numberOfDaysFromNow - 1).click();
+        checkVisibility(departureCalendar).click();
+        checkVisibility(availableDates.get(numberOfDaysFromNow - 1)).click();
     }
 
     public void selectReturnDate(int numberOfDaysFromNow) {
-        returnCalendar.click();
-        availableDates.get(numberOfDaysFromNow - 1).click();
+        checkVisibility(returnCalendar).click();
+        checkVisibility(availableDates.get(numberOfDaysFromNow - 1)).click();
     }
 
     public void fillArrivalAirportField(String airport) {
-        inputForm.sendKeys(airport);
+        checkVisibility(inputForm).sendKeys(airport);
     }
 
     public void fillTicketNumberField(String number) {
-        ticketNumberField.sendKeys(number);
+        checkVisibility(ticketNumberField).sendKeys(number);
     }
 
     public void fillSurnameField(String surname) {
-        surnameField.sendKeys(surname);
+        checkVisibility(surnameField).sendKeys(surname);
     }
 
     public void clickToAddNewPassenger() {
-        passengersSelector.click();
+        checkVisibility(passengersSelector).click();
     }
 
     public void clickBookingTab() {
-        bookingTab.click();
+        checkVisibility(bookingTab).click();
     }
 
     public void clickBookingMerge() {
-        mmbButton.submit();
+        checkVisibility(mmbButton).submit();
     }
 
-    public void clickSearch(int number) {
-        for (int i = 0; i < number; i++)
-            searchButton.submit();
+    public void clickSearch() {
+        checkVisibility(searchButton).submit();
     }
 
     public void addInfants(int number) {
-        addFewPassengers(number, plusInfant);
+        addPassengers(number, "infant");
     }
 
     public String getError() {
-        return errors.getText();
+        return checkVisibility(errors).getText();
     }
 
     public String getAirportError() {
-        return airportError.getText();
+        return checkVisibility(airportError).getText();
     }
 
-    private void addFewPassengers(int number, WebElement element) {
-        for (int i = 0; i < number; i++) {
-            element.click();
+    private void addPassengers(int number, String element) {
+        switch (element) {
+            case "adult": {
+                for (int i = 0; i < number; i++) {
+                    checkVisibility(plusAdult).click();
+                }
+                break;
+            }
+            case "children": {
+                for (int i = 0; i < number; i++) {
+                    checkVisibility(plusChildren).click();
+                }
+                break;
+            }
+            case "infant": {
+                for (int i = 0; i < number; i++) {
+                    checkVisibility(plusInfant).click();
+                }
+                break;
+            }
         }
     }
 
-    private void findAirport(String airport) {
-        for (WebElement a : dropdown) {
-            if (a.getText().equals(airport)) {
-                a.click();
+    private void findAirport(String airportName) {
+        for (WebElement airport : dropdown) {
+            if (checkVisibility(airport).getText().equals(airportName)) {
+                checkVisibility(airport).click();
                 return;
             }
         }
     }
-}
 
+    private WebElement checkVisibility(WebElement element) {
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+}
