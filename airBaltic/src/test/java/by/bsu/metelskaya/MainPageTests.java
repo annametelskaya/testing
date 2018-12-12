@@ -46,11 +46,11 @@ public class MainPageTests {
         Assert.assertEquals(steps.getErrorWhenAllFieldsAreEmpty(), expectedError);
     }
 
-    @Test
-    public void findTicketWhenArrivalAirportEqualsToDepartureOne() {
-        String expectedError = "Please select the destination of your journey.";
-        Assert.assertEquals(steps.getErrorWhenArrivalAirportEqualsToDepartureOne(), expectedError);
-    }
+//    @Test
+//    public void findTicketWhenArrivalAirportEqualsToDepartureOne() {
+//        String expectedError = "Please select the destination of your journey.";
+//        Assert.assertEquals(steps.getErrorWhenArrivalAirportEqualsToDepartureOne(), expectedError);
+//    }
 
     @Test
     public void findTicketWhenArrivalAirportDoesNotExist() {
