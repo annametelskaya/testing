@@ -1,5 +1,6 @@
 package by.bsu.metelskaya.steps;
 
+import by.bsu.metelskaya.common.SearchData;
 import by.bsu.metelskaya.page.MainPage;
 import org.openqa.selenium.WebDriver;
 
@@ -18,24 +19,24 @@ public class MainPageSteps {
         mainPage.clickSearch();
     }
 
-    public String getErrorWhenArrivalAirportDoesNotExist() {
-        mainPage.fillArrivalAirportField("example");
+    public String getErrorWhenArrivalAirportDoesNotExist(SearchData data) {
+        mainPage.fillArrivalAirportField(data.getArrivalAirport());
         return mainPage.getAirportError();
     }
 
-    public String getErrorWhenDepartureDateIsLaterThanReturnDate() {
+    public String getErrorWhenDepartureDateIsLaterThanReturnDate(SearchData data) {
         mainPage.scrollToContent();
         mainPage.clickSearch();
-        mainPage.selectReturnDate(1);
-        mainPage.selectDepartureDate(3);
+        mainPage.selectReturnDate(data.getNumberOfDaysFromNowInReturnCalendar());
+        mainPage.selectDepartureDate(data.getNumberOfDaysFromNowInDepartureDate());
         return mainPage.getError();
     }
 
-    public String getErrorWhenNumberOfInfantsIsMoreThanAdults() {
+    public String getErrorWhenNumberOfInfantsIsMoreThanAdults(SearchData data) {
         mainPage.scrollToContent();
         mainPage.clickSearch();
         mainPage.clickToAddNewPassenger();
-        mainPage.addInfants(2);
+        mainPage.addInfants(data.getNumberOfInfant());
         return mainPage.getError();
     }
 
@@ -54,18 +55,18 @@ public class MainPageSteps {
         return mainPage.getError();
     }
 
-    public String getErrorWhenSurnameIsNotInEnglish() {
+    public String getErrorWhenSurnameIsNotInEnglish(SearchData data) {
         mainPage.clickBookingTab();
-        mainPage.fillTicketNumberField("123456");
-        mainPage.fillSurnameField("Иванов");
+        mainPage.fillTicketNumberField(data.getTicketNumberForBooking());
+        mainPage.fillSurnameField(data.getSurnameForBooking());
         mainPage.clickBookingMerge();
         return mainPage.getError();
     }
 
-    public String getErrorWhenTicketNumberIsLessThanSixsymbols() {
+    public String getErrorWhenTicketNumberIsLessThanSixSymbols(SearchData data) {
         mainPage.clickBookingTab();
-        mainPage.fillTicketNumberField("12345");
-        mainPage.fillSurnameField("Brawn");
+        mainPage.fillTicketNumberField(data.getTicketNumberForBooking());
+        mainPage.fillSurnameField(data.getSurnameForBooking());
         mainPage.clickBookingMerge();
         return mainPage.getError();
     }
