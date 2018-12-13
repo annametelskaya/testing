@@ -65,6 +65,9 @@ public class MainPage {
     @FindBy(xpath = "//div[@class='btn btn-blue btn-mmb']/button")
     private WebElement mmbButton;
 
+    @FindBy(xpath = "//div[@class='bbb-content']/a")
+    private List<WebElement> cheapFlights;
+
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -96,6 +99,10 @@ public class MainPage {
     public void selectReturnDate(int numberOfDaysFromNow) {
         checkVisibility(returnCalendar).click();
         checkVisibility(availableDates.get(numberOfDaysFromNow - 1)).click();
+    }
+
+    public void selectFlight() {
+        checkVisibility(cheapFlights.get(0)).click();
     }
 
     public void fillArrivalAirportField(String airport) {

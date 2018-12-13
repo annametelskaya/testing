@@ -1,7 +1,10 @@
 package by.bsu.metelskaya;
 
 import by.bsu.metelskaya.common.SearchData;
+import by.bsu.metelskaya.steps.CalendarPageSteps;
+import by.bsu.metelskaya.steps.FlightsBookingPageSteps;
 import by.bsu.metelskaya.steps.MainPageSteps;
+import by.bsu.metelskaya.steps.PassengerPageSteps;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,9 +13,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class MainPageTests {
+public class Tests {
     WebDriver driver;
-    MainPageSteps steps;
+    MainPageSteps mainPageSteps;
+    CalendarPageSteps calendarPageSteps;
+    FlightsBookingPageSteps flightsBookingPageSteps;
+    PassengerPageSteps passengerPageSteps;
 
     @Before
     public void openPage() {
@@ -23,7 +29,19 @@ public class MainPageTests {
         options.addArguments("--no-sandbox"); // Bypass OS security model
         driver = new ChromeDriver(options);
         driver.get("https://www.airbaltic.com/en-BY/index");
-        steps = new MainPageSteps(driver);
+        mainPageSteps = new MainPageSteps(driver);
+        calendarPageSteps = new CalendarPageSteps(driver);
+        flightsBookingPageSteps = new FlightsBookingPageSteps(driver);
+        passengerPageSteps = new PassengerPageSteps(driver);
+    }
+
+    @Test
+    public void bookTicketWhenPassengerInformationIsNotFilled() {
+        mainPageSteps.selectCheapFlight();
+        calendarPageSteps.clickContinue();
+        flightsBookingPageSteps.clickContinue();
+        String expectedError = "All mandatory fields have not been filled in or there are fields which are filled in incorrectly. Please use Latin characters only, special characters like dash (-) or apostrophe (') are not accepted.";
+        Assert.assertTrue(passengerPageSteps.getErrorWhenPassengerInformationIsNotFilled().contains(expectedError));
     }
 
     @Test
@@ -32,7 +50,7 @@ public class MainPageTests {
         data.setNumberOfDaysFromNowInDepartureDate(3);
         data.setNumberOfDaysFromNowInReturnCalendar(1);
         String expectedError = "The date of the inbound flight cannot be earlier than the date of the outbound flight. Please adjust your selection.";
-        Assert.assertEquals(steps.getErrorWhenDepartureDateIsLaterThanReturnDate(data), expectedError);
+        Assert.assertEquals(mainPageSteps.getErrorWhenDepartureDateIsLaterThanReturnDate(data), expectedError);
     }
 
     @Test
@@ -40,7 +58,7 @@ public class MainPageTests {
         SearchData data = new SearchData();
         data.setNumberOfInfant(2);
         String expectedError = "The number of infants can not be higher than the number of adults. Only an adult can accompany an infant.";
-        Assert.assertEquals(steps.getErrorWhenNumberOfInfantsIsMoreThanAdults(data), expectedError);
+        Assert.assertEquals(mainPageSteps.getErrorWhenNumberOfInfantsIsMoreThanAdults(data), expectedError);
     }
 
     @Test
@@ -49,13 +67,13 @@ public class MainPageTests {
                 "Please select the return date.\n" +
                 "Please select the destination of your journey.\n" +
                 "Please select the origin of your journey.";
-        Assert.assertEquals(steps.getErrorWhenAllFieldsAreEmpty(), expectedError);
+        Assert.assertEquals(mainPageSteps.getErrorWhenAllFieldsAreEmpty(), expectedError);
     }
 
 //    @Test
 //    public void findTicketWhenArrivalAirportEqualsToDepartureOne() {
 //        String expectedError = "Please select the destination of your journey.";
-//        Assert.assertEquals(steps.getErrorWhenArrivalAirportEqualsToDepartureOne(), expectedError);
+//        Assert.assertEquals(mainPageSteps.getErrorWhenArrivalAirportEqualsToDepartureOne(), expectedError);
 //    }
 
     @Test
@@ -63,25 +81,25 @@ public class MainPageTests {
         SearchData data = new SearchData();
         data.setArrivalAirport("example");
         String expectedError = "Unfortunately, we do not fly to/from ";
-        Assert.assertTrue(steps.getErrorWhenArrivalAirportDoesNotExist(data).contains(expectedError));
+        Assert.assertTrue(mainPageSteps.getErrorWhenArrivalAirportDoesNotExist(data).contains(expectedError));
     }
 
     @Test
     public void findBookingWhenSurnameIsNotInEnglish() {
-        SearchData data=new SearchData();
+        SearchData data = new SearchData();
         data.setTicketNumberForBooking("123456");
         data.setSurnameForBooking("Иванов");
         String expectedError = "Only Latin characters are allowed";
-        Assert.assertEquals(steps.getErrorWhenSurnameIsNotInEnglish(data), expectedError);
+        Assert.assertEquals(mainPageSteps.getErrorWhenSurnameIsNotInEnglish(data), expectedError);
     }
 
     @Test
     public void findBookingWhenTicketNumberIsLessThanSixSymbols() {
-        SearchData data=new SearchData();
+        SearchData data = new SearchData();
         data.setTicketNumberForBooking("12345");
         data.setSurnameForBooking("Brawn");
         String expectedError = "The booking reference consists of 6 symbols. The ticket number consists of 3 + 10 digits, separated by a hyphen.";
-        Assert.assertEquals(steps.getErrorWhenTicketNumberIsLessThanSixSymbols(data), expectedError);
+        Assert.assertEquals(mainPageSteps.getErrorWhenTicketNumberIsLessThanSixSymbols(data), expectedError);
     }
 
     @After
