@@ -7,9 +7,17 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class PassengerPage {
     @FindBy(xpath = "//div[@class='item']/button[@class='btn btn-next button-green btn-continue-booking passenger-specific']")
     private WebElement continueButton;
+
+    @FindBy(xpath = "//div[@class='jq-selectbox__select-text needsclick']")
+    private WebElement titleSelector;
+
+    @FindBy(xpath = "//li[@class='has-value needsclick'")
+    private List<WebElement> titles;
 
     @FindBy(xpath = "//div[@class='light-error-div error-pane']")
     private WebElement error;
@@ -31,6 +39,7 @@ public class PassengerPage {
     public String getError() {
         return checkVisibility(error).getText();
     }
+
 
     private WebElement checkVisibility(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element));

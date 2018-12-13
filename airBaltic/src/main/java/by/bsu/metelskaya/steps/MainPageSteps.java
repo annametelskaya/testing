@@ -12,11 +12,6 @@ public class MainPageSteps {
     }
 
     public void selectFlight(SearchData data) {
-//        mainPage.selectArrivalAirport("Riga (RIX) - Latvia");
-//        mainPage.selectDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
-//        mainPage.selectDepartureDate(1);
-//        mainPage.selectReturnDate(2);
-//        mainPage.clickSearch();
         mainPage.scrollToContent();
         mainPage.selectArrivalAirport(data.getArrivalAirport());
         mainPage.selectDepartureAirport(data.getDepartureAirport());

@@ -35,6 +35,9 @@ public class MainPage {
     @FindBy(xpath = "//td[@class='direct available']")
     private List<WebElement> available;
 
+    @FindBy(xpath = "//td[@class='available in-range highlighted']")
+    private List<WebElement> availableInRange;
+
     @FindBy(xpath = "//div[@focusoutforceopen='openPaxSelector']")
     private WebElement passengersSelector;
 
@@ -67,9 +70,6 @@ public class MainPage {
 
     @FindBy(xpath = "//div[@class='btn btn-blue btn-mmb']/button")
     private WebElement mmbButton;
-
-    @FindBy(xpath = "//div[@class='bbb-content']/a")
-    private List<WebElement> cheapFlights;
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -114,10 +114,6 @@ public class MainPage {
         checkVisibility(available.get(numberOfDaysFromNow - 1)).click();
     }
 
-    public void selectFlight() {
-        checkVisibility(cheapFlights.get(0)).click();
-    }
-
     public void fillArrivalAirportField(String airport) {
         checkVisibility(inputForm).sendKeys(airport);
     }
@@ -158,8 +154,8 @@ public class MainPage {
         return checkVisibility(airportError).getText();
     }
 
-    private void addPassengers(int number, String element) {
-        switch (element) {
+    private void addPassengers(int number, String type) {
+        switch (type) {
             case "adult": {
                 for (int i = 0; i < number; i++) {
                     checkVisibility(plusAdult).click();

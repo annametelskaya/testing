@@ -13,4 +13,8 @@ public class FlightsBookingPageSteps {
     public void clickContinue() {
         flightsBookingPage.clickContinueButton();
     }
+
+    public boolean checksIsErrorExist(){
+        return flightsBookingPage.checkError();
+    }
 }

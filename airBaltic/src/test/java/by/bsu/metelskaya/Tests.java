@@ -1,9 +1,11 @@
 package by.bsu.metelskaya;
 
+import by.bsu.metelskaya.common.PassengerInformation;
 import by.bsu.metelskaya.common.SearchData;
 import by.bsu.metelskaya.steps.FlightsBookingPageSteps;
 import by.bsu.metelskaya.steps.MainPageSteps;
 import by.bsu.metelskaya.steps.PassengerPageSteps;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,19 +32,6 @@ public class Tests {
         mainPageSteps = new MainPageSteps(driver);
         flightsBookingPageSteps = new FlightsBookingPageSteps(driver);
         passengerPageSteps = new PassengerPageSteps(driver);
-    }
-
-    @Test
-    public void bookTicketWhenPassengerInformationIsNotFilled() {
-        SearchData data=new SearchData();
-        data.setArrivalAirport("Riga (RIX) - Latvia");
-        data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
-        data.setNumberOfDaysFromNowInDepartureDate(3);
-        data.setNumberOfDaysFromNowInReturnCalendar(5);
-        mainPageSteps.selectFlight(data);
-        flightsBookingPageSteps.clickContinue();
-        String expectedError = "All mandatory fields have not been filled in or there are fields which are filled in incorrectly. Please use Latin characters only, special characters like dash (-) or apostrophe (') are not accepted.";
-        Assert.assertTrue(passengerPageSteps.getErrorWhenPassengerInformationIsNotFilled().contains(expectedError));
     }
 
     @Test
@@ -73,7 +62,7 @@ public class Tests {
 
     @Test
     public void findTicketWhenArrivalAirportEqualsToDepartureOne() {
-        SearchData data=new SearchData();
+        SearchData data = new SearchData();
         data.setArrivalAirport("Riga (RIX) - Latvia");
         data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
         String expectedError = "Please select the destination of your journey.";
@@ -104,6 +93,30 @@ public class Tests {
         data.setSurnameForBooking("Brawn");
         String expectedError = "The booking reference consists of 6 symbols. The ticket number consists of 3 + 10 digits, separated by a hyphen.";
         Assert.assertEquals(mainPageSteps.getErrorWhenTicketNumberIsLessThanSixSymbols(data), expectedError);
+    }
+
+    @Test
+    public void findTickets(){
+        SearchData data = new SearchData();
+        data.setArrivalAirport("Riga (RIX) - Latvia");
+        data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
+        data.setNumberOfDaysFromNowInDepartureDate(3);
+        data.setNumberOfDaysFromNowInReturnCalendar(5);
+        mainPageSteps.selectFlight(data);
+        Assert.assertFalse(flightsBookingPageSteps.checksIsErrorExist());
+    }
+
+    @Test
+    public void bookTicketWhenPassengerInformationIsNotFilled() {
+        SearchData data = new SearchData();
+        data.setArrivalAirport("Riga (RIX) - Latvia");
+        data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
+        data.setNumberOfDaysFromNowInDepartureDate(3);
+        data.setNumberOfDaysFromNowInReturnCalendar(5);
+        mainPageSteps.selectFlight(data);
+        flightsBookingPageSteps.clickContinue();
+        String expectedError = "All mandatory fields have not been filled in or there are fields which are filled in incorrectly. Please use Latin characters only, special characters like dash (-) or apostrophe (') are not accepted.";
+        Assert.assertTrue(passengerPageSteps.getErrorWhenPassengerInformationIsNotFilled().contains(expectedError));
     }
 
     @After
