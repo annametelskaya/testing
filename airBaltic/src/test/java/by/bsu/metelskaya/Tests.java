@@ -15,10 +15,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Tests {
-    WebDriver driver;
-    MainPageSteps mainPageSteps;
-    FlightsBookingPageSteps flightsBookingPageSteps;
-    PassengerPageSteps passengerPageSteps;
+    private WebDriver driver;
+    private MainPageSteps mainPageSteps;
+    private FlightsBookingPageSteps flightsBookingPageSteps;
+    private PassengerPageSteps passengerPageSteps;
 
     @Before
     public void openPage() {
@@ -78,6 +78,18 @@ public class Tests {
     }
 
     @Test
+    public void findTicketWhenPromoCodeIsNotCorrect() {
+        SearchData data = new SearchData();
+        data.setArrivalAirport("Riga (RIX) - Latvia");
+        data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
+        data.setCode("evouchercode");
+        data.setNumberOfDaysFromNowInDepartureDate(3);
+        data.setNumberOfDaysFromNowInReturnCalendar(5);
+        String expectedError = "The e-voucher code you have entered is incorrect. Please correct the data and try again.";
+        Assert.assertTrue(mainPageSteps.getErrorWhenPromoCodeIsNotCorrect(data).contains(expectedError));
+    }
+
+    @Test
     public void findBookingWhenSurnameIsNotInEnglish() {
         SearchData data = new SearchData();
         data.setTicketNumberForBooking("123456");
@@ -92,11 +104,20 @@ public class Tests {
         data.setTicketNumberForBooking("12345");
         data.setSurnameForBooking("Brawn");
         String expectedError = "The booking reference consists of 6 symbols. The ticket number consists of 3 + 10 digits, separated by a hyphen.";
-        Assert.assertEquals(mainPageSteps.getErrorWhenTicketNumberIsLessThanSixSymbols(data), expectedError);
+        Assert.assertEquals(mainPageSteps.getErrorWhenTicketNumberIsWrong(data), expectedError);
     }
 
     @Test
-    public void findTickets(){
+    public void findBookingWhenTicketNumberIsMoreThanSixSymbolsButLessThanThirteen() {
+        SearchData data = new SearchData();
+        data.setTicketNumberForBooking("123456789");
+        data.setSurnameForBooking("Brawn");
+        String expectedError = "The booking reference consists of 6 symbols. The ticket number consists of 3 + 10 digits, separated by a hyphen.";
+        Assert.assertEquals(mainPageSteps.getErrorWhenTicketNumberIsWrong(data), expectedError);
+    }
+
+    @Test
+    public void findTickets() {
         SearchData data = new SearchData();
         data.setArrivalAirport("Riga (RIX) - Latvia");
         data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");

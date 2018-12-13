@@ -64,11 +64,23 @@ public class MainPageSteps {
         return mainPage.getError();
     }
 
-    public String getErrorWhenTicketNumberIsLessThanSixSymbols(SearchData data) {
+    public String getErrorWhenTicketNumberIsWrong(SearchData data) {
         mainPage.clickBookingTab();
         mainPage.fillTicketNumberField(data.getTicketNumberForBooking());
         mainPage.fillSurnameField(data.getSurnameForBooking());
         mainPage.clickBookingMerge();
+        return mainPage.getError();
+    }
+
+    public String getErrorWhenPromoCodeIsNotCorrect(SearchData data) {
+        mainPage.scrollToContent();
+        mainPage.selectArrivalAirport(data.getArrivalAirport());
+        mainPage.selectDepartureAirport(data.getDepartureAirport());
+        mainPage.selectDeparture(data.getNumberOfDaysFromNowInDepartureDate());
+        mainPage.selectReturn(data.getNumberOfDaysFromNowInReturnCalendar());
+        mainPage.selectPromoCode();
+        mainPage.fillPromoCode(data.getCode());
+        mainPage.clickSearch();
         return mainPage.getError();
     }
 }

@@ -71,6 +71,12 @@ public class MainPage {
     @FindBy(xpath = "//div[@class='btn btn-blue btn-mmb']/button")
     private WebElement mmbButton;
 
+    @FindBy(xpath = "//div[@class='promo-code-block']")
+    private WebElement promoCodeButton;
+
+    @FindBy(xpath = "//div[@class='promo-code-field']/input")
+    private WebElement promoCode;
+
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -114,6 +120,10 @@ public class MainPage {
         checkVisibility(available.get(numberOfDaysFromNow - 1)).click();
     }
 
+    public void selectPromoCode() {
+        checkVisibility(promoCodeButton).click();
+    }
+
     public void fillArrivalAirportField(String airport) {
         checkVisibility(inputForm).sendKeys(airport);
     }
@@ -124,6 +134,10 @@ public class MainPage {
 
     public void fillSurnameField(String surname) {
         checkVisibility(surnameField).sendKeys(surname);
+    }
+
+    public void fillPromoCode(String code){
+        checkVisibility(promoCode).sendKeys(code);
     }
 
     public void clickToAddNewPassenger() {

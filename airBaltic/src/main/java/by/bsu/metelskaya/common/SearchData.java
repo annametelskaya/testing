@@ -10,6 +10,15 @@ public class SearchData {
     private int numberOfInfant;
     private String ticketNumberForBooking;
     private String surnameForBooking;
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public void setArrivalAirport(String arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
