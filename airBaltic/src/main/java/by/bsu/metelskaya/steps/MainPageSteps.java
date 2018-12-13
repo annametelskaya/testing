@@ -11,17 +11,17 @@ public class MainPageSteps {
         mainPage = new MainPage(driver);
     }
 
-    public void selectFlight() {
+    public void selectFlight(SearchData data) {
 //        mainPage.selectArrivalAirport("Riga (RIX) - Latvia");
 //        mainPage.selectDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
 //        mainPage.selectDepartureDate(1);
 //        mainPage.selectReturnDate(2);
 //        mainPage.clickSearch();
         mainPage.scrollToContent();
-        mainPage.selectArrivalAirport("Riga (RIX) - Latvia");
-        mainPage.selectDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
-        mainPage.selectDeparture(1);
-        mainPage.selectReturn(3);
+        mainPage.selectArrivalAirport(data.getArrivalAirport());
+        mainPage.selectDepartureAirport(data.getDepartureAirport());
+        mainPage.selectDeparture(data.getNumberOfDaysFromNowInDepartureDate());
+        mainPage.selectReturn(data.getNumberOfDaysFromNowInReturnCalendar());
         mainPage.clickSearch();
     }
 
@@ -53,11 +53,11 @@ public class MainPageSteps {
         return mainPage.getError();
     }
 
-    public String getErrorWhenArrivalAirportEqualsToDepartureOne() {
+    public String getErrorWhenArrivalAirportEqualsToDepartureOne(SearchData data) {
         mainPage.scrollToContent();
-        mainPage.selectArrivalAirport("Frankfurt (am Main) (FRA) - Germany");
-        mainPage.selectDepartureAirport("Moscow (Sheremetyevo) (SVO) - Russia");
-        mainPage.selectArrivalAirport("Moscow (Sheremetyevo) (SVO) - Russia");
+        mainPage.selectArrivalAirport(data.getArrivalAirport());
+        mainPage.selectDepartureAirport(data.getDepartureAirport());
+        mainPage.selectArrivalAirport(data.getDepartureAirport());
         return mainPage.getError();
     }
 

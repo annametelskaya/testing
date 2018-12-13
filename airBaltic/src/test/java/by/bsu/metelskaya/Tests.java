@@ -34,7 +34,12 @@ public class Tests {
 
     @Test
     public void bookTicketWhenPassengerInformationIsNotFilled() {
-        mainPageSteps.selectFlight();
+        SearchData data=new SearchData();
+        data.setArrivalAirport("Riga (RIX) - Latvia");
+        data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
+        data.setNumberOfDaysFromNowInDepartureDate(3);
+        data.setNumberOfDaysFromNowInReturnCalendar(5);
+        mainPageSteps.selectFlight(data);
         flightsBookingPageSteps.clickContinue();
         String expectedError = "All mandatory fields have not been filled in or there are fields which are filled in incorrectly. Please use Latin characters only, special characters like dash (-) or apostrophe (') are not accepted.";
         Assert.assertTrue(passengerPageSteps.getErrorWhenPassengerInformationIsNotFilled().contains(expectedError));
@@ -66,11 +71,14 @@ public class Tests {
         Assert.assertEquals(mainPageSteps.getErrorWhenAllFieldsAreEmpty(), expectedError);
     }
 
-//    @Test
-//    public void findTicketWhenArrivalAirportEqualsToDepartureOne() {
-//        String expectedError = "Please select the destination of your journey.";
-//        Assert.assertEquals(mainPageSteps.getErrorWhenArrivalAirportEqualsToDepartureOne(), expectedError);
-//    }
+    @Test
+    public void findTicketWhenArrivalAirportEqualsToDepartureOne() {
+        SearchData data=new SearchData();
+        data.setArrivalAirport("Riga (RIX) - Latvia");
+        data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
+        String expectedError = "Please select the destination of your journey.";
+        Assert.assertEquals(mainPageSteps.getErrorWhenArrivalAirportEqualsToDepartureOne(data), expectedError);
+    }
 
     @Test
     public void findTicketWhenArrivalAirportDoesNotExist() {
