@@ -32,6 +32,9 @@ public class MainPage {
     @FindBy(xpath = "//td[@class='available']")
     private List<WebElement> availableDates;
 
+    @FindBy(xpath = "//td[@class='direct available']")
+    private List<WebElement> available;
+
     @FindBy(xpath = "//div[@focusoutforceopen='openPaxSelector']")
     private WebElement passengersSelector;
 
@@ -96,9 +99,19 @@ public class MainPage {
         checkVisibility(availableDates.get(numberOfDaysFromNow - 1)).click();
     }
 
+    public void selectDeparture(int numberOfDaysFromNow) {
+        checkVisibility(departureCalendar).click();
+        checkVisibility(available.get(numberOfDaysFromNow - 1)).click();
+    }
+
     public void selectReturnDate(int numberOfDaysFromNow) {
         checkVisibility(returnCalendar).click();
         checkVisibility(availableDates.get(numberOfDaysFromNow - 1)).click();
+    }
+
+    public void selectReturn(int numberOfDaysFromNow) {
+        checkVisibility(returnCalendar).click();
+        checkVisibility(available.get(numberOfDaysFromNow - 1)).click();
     }
 
     public void selectFlight() {

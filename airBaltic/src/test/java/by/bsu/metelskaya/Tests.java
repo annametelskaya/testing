@@ -1,7 +1,6 @@
 package by.bsu.metelskaya;
 
 import by.bsu.metelskaya.common.SearchData;
-import by.bsu.metelskaya.steps.CalendarPageSteps;
 import by.bsu.metelskaya.steps.FlightsBookingPageSteps;
 import by.bsu.metelskaya.steps.MainPageSteps;
 import by.bsu.metelskaya.steps.PassengerPageSteps;
@@ -16,7 +15,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class Tests {
     WebDriver driver;
     MainPageSteps mainPageSteps;
-    CalendarPageSteps calendarPageSteps;
     FlightsBookingPageSteps flightsBookingPageSteps;
     PassengerPageSteps passengerPageSteps;
 
@@ -24,21 +22,19 @@ public class Tests {
     public void openPage() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("--no-sandbox"); // Bypass OS security model
         driver = new ChromeDriver(options);
         driver.get("https://www.airbaltic.com/en-BY/index");
         mainPageSteps = new MainPageSteps(driver);
-        calendarPageSteps = new CalendarPageSteps(driver);
         flightsBookingPageSteps = new FlightsBookingPageSteps(driver);
         passengerPageSteps = new PassengerPageSteps(driver);
     }
 
     @Test
     public void bookTicketWhenPassengerInformationIsNotFilled() {
-        mainPageSteps.selectCheapFlight();
-        calendarPageSteps.clickContinue();
+        mainPageSteps.selectFlight();
         flightsBookingPageSteps.clickContinue();
         String expectedError = "All mandatory fields have not been filled in or there are fields which are filled in incorrectly. Please use Latin characters only, special characters like dash (-) or apostrophe (') are not accepted.";
         Assert.assertTrue(passengerPageSteps.getErrorWhenPassengerInformationIsNotFilled().contains(expectedError));

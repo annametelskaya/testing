@@ -11,13 +11,18 @@ public class MainPageSteps {
         mainPage = new MainPage(driver);
     }
 
-    public void selectCheapFlight() {
+    public void selectFlight() {
 //        mainPage.selectArrivalAirport("Riga (RIX) - Latvia");
 //        mainPage.selectDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
 //        mainPage.selectDepartureDate(1);
 //        mainPage.selectReturnDate(2);
 //        mainPage.clickSearch();
-        mainPage.selectFlight();
+        mainPage.scrollToContent();
+        mainPage.selectArrivalAirport("Riga (RIX) - Latvia");
+        mainPage.selectDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
+        mainPage.selectDeparture(1);
+        mainPage.selectReturn(3);
+        mainPage.clickSearch();
     }
 
     public String getErrorWhenArrivalAirportDoesNotExist(SearchData data) {
