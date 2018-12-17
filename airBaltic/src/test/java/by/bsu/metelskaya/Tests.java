@@ -117,7 +117,7 @@ public class Tests {
     }
 
     @Test
-    public void findTickets() {
+    public void checkThatTicketsAreAvailable() {
         SearchData data = new SearchData();
         data.setArrivalAirport("Riga (RIX) - Latvia");
         data.setDepartureAirport("London (Gatwick) (LGW) - United Kingdom");
